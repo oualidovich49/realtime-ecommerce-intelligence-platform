@@ -1,0 +1,168 @@
+{
+  "captured_at_utc": "2026-10-31T03:09:00.432463+00:00",
+  "baseline": {
+    "captured_at_utc": "2026-10-31T03:03:37.290252+00:00",
+    "database_size_bytes": 31955991,
+    "simulated_events_size_bytes": 11862016,
+    "simulated_event_rows": 24235,
+    "api_products_size_bytes": 2678784,
+    "api_product_rows": 194
+  },
+  "current_snapshot": {
+    "captured_at_utc": "2026-10-31T03:09:00.432432+00:00",
+    "database_size_bytes": 38673431,
+    "simulated_events_size_bytes": 17539072,
+    "simulated_event_rows": 36335,
+    "api_products_size_bytes": 2678784,
+    "api_product_rows": 194
+  },
+  "growth_since_baseline": {
+    "from_utc": "2026-10-31T03:03:37.290252+00:00",
+    "to_utc": "2026-10-31T03:09:00.432432+00:00",
+    "database_size_delta_bytes": 6717440,
+    "simulated_events_size_delta_bytes": 5677056,
+    "simulated_event_row_delta": 12100,
+    "api_products_size_delta_bytes": 0
+  },
+  "temporary_insert_benchmark": {
+    "rows_inserted": 10000,
+    "elapsed_seconds": 0.254,
+    "insert_rows_per_second": 39426.891,
+    "target": "session-local temporary table",
+    "persistent_tables_modified": false
+  },
+  "query_wall_clock_timings_ms": {
+    "simulated_events_recent_by_time": {
+      "samples": 30,
+      "p50_ms": 14.623,
+      "p95_ms": 18.997,
+      "p99_ms": 19.59,
+      "mean_ms": 15.092
+    },
+    "simulated_events_type_and_time": {
+      "samples": 30,
+      "p50_ms": 5.682,
+      "p95_ms": 9.036,
+      "p99_ms": 9.567,
+      "mean_ms": 5.816
+    },
+    "daily_synthetic_revenue": {
+      "samples": 30,
+      "p50_ms": 0.941,
+      "p95_ms": 1.578,
+      "p99_ms": 6.617,
+      "mean_ms": 1.19
+    }
+  },
+  "explain_analyze": [
+    {
+      "name": "simulated_events_recent_by_time",
+      "execution_time_ms": 18.056,
+      "planning_time_ms": 1.101,
+      "nodes": [
+        {
+          "node_type": "Aggregate",
+          "index_name": null,
+          "actual_rows": 8,
+          "actual_total_time_ms": 17.935,
+          "shared_hit_blocks": 1720,
+          "shared_read_blocks": 0
+        },
+        {
+          "node_type": "Seq Scan",
+          "index_name": null,
+          "actual_rows": 36335,
+          "actual_total_time_ms": 10.47,
+          "shared_hit_blocks": 1720,
+          "shared_read_blocks": 0
+        }
+      ]
+    },
+    {
+      "name": "simulated_events_type_and_time",
+      "execution_time_ms": 4.728,
+      "planning_time_ms": 0.131,
+      "nodes": [
+        {
+          "node_type": "Aggregate",
+          "index_name": null,
+          "actual_rows": 1,
+          "actual_total_time_ms": 4.667,
+          "shared_hit_blocks": 1622,
+          "shared_read_blocks": 0
+        },
+        {
+          "node_type": "Bitmap Heap Scan",
+          "index_name": null,
+          "actual_rows": 4505,
+          "actual_total_time_ms": 4.388,
+          "shared_hit_blocks": 1622,
+          "shared_read_blocks": 0
+        },
+        {
+          "node_type": "Bitmap Index Scan",
+          "index_name": "idx_simulated_events_type",
+          "actual_rows": 4505,
+          "actual_total_time_ms": 0.285,
+          "shared_hit_blocks": 5,
+          "shared_read_blocks": 0
+        }
+      ]
+    },
+    {
+      "name": "daily_synthetic_revenue",
+      "execution_time_ms": 0.205,
+      "planning_time_ms": 2.681,
+      "nodes": [
+        {
+          "node_type": "Aggregate",
+          "index_name": null,
+          "actual_rows": 1,
+          "actual_total_time_ms": 0.095,
+          "shared_hit_blocks": 5,
+          "shared_read_blocks": 0
+        },
+        {
+          "node_type": "Sort",
+          "index_name": null,
+          "actual_rows": 3,
+          "actual_total_time_ms": 0.089,
+          "shared_hit_blocks": 5,
+          "shared_read_blocks": 0
+        },
+        {
+          "node_type": "Hash Join",
+          "index_name": null,
+          "actual_rows": 3,
+          "actual_total_time_ms": 0.048,
+          "shared_hit_blocks": 2,
+          "shared_read_blocks": 0
+        },
+        {
+          "node_type": "Seq Scan",
+          "index_name": null,
+          "actual_rows": 5,
+          "actual_total_time_ms": 0.005,
+          "shared_hit_blocks": 1,
+          "shared_read_blocks": 0
+        },
+        {
+          "node_type": "Hash",
+          "index_name": null,
+          "actual_rows": 3,
+          "actual_total_time_ms": 0.025,
+          "shared_hit_blocks": 1,
+          "shared_read_blocks": 0
+        },
+        {
+          "node_type": "Seq Scan",
+          "index_name": null,
+          "actual_rows": 3,
+          "actual_total_time_ms": 0.017,
+          "shared_hit_blocks": 1,
+          "shared_read_blocks": 0
+        }
+      ]
+    }
+  ]
+}

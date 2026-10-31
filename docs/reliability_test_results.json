@@ -1,0 +1,74 @@
+{
+  "created_at_utc": "2026-10-31T03:09:55.469182+00:00",
+  "results": [
+    {
+      "name": "consumer_restart_and_offset_recovery",
+      "status": "passed",
+      "produced": 5,
+      "persisted_after_first_consumer": 2,
+      "persisted_after_restart": 5,
+      "topic": "ecommerce-restart-f28cbd08f41a42",
+      "consumer_group": "reliability-f28cbd08f41a42"
+    },
+    {
+      "name": "duplicate_event_delivery",
+      "status": "passed",
+      "messages_delivered": 2,
+      "unique_rows": 1,
+      "inserted": 1,
+      "duplicates_suppressed": 1,
+      "failed": 0,
+      "topic": "ecommerce-duplicate-a3eb65c9a22241"
+    },
+    {
+      "name": "injected_postgres_outage_and_kafka_replay",
+      "status": "passed",
+      "injected_connection_failure": true,
+      "persisted_before_replay": 0,
+      "persisted_after_replay": 1,
+      "failure_batches_recorded": 1,
+      "topic": "ecommerce-pg-recovery-bff43c24987841",
+      "consumer_group": "reliability-bff43c24987841",
+      "scope_note": "Injected at the consumer persistence call; PostgreSQL service was not stopped."
+    },
+    {
+      "name": "api_request_timeout",
+      "status": "passed",
+      "timeout_raised": true,
+      "ingestion_run_id": 18,
+      "ingestion_run_status": "failed",
+      "error_class_recorded": "ConnectionError"
+    },
+    {
+      "name": "api_retry_recovers_after_timed_out_attempt",
+      "status": "passed",
+      "attempts": 2,
+      "records_returned": 1,
+      "error": null
+    },
+    {
+      "name": "postgres_unreachable_endpoint_then_recovery",
+      "status": "passed",
+      "unreachable_endpoint_rejected": true,
+      "live_database_query_afterward": true,
+      "scope_note": "Tests connection failure handling without interrupting the PostgreSQL service."
+    },
+    {
+      "name": "unreachable_kafka_endpoint_then_live_broker_check",
+      "status": "passed",
+      "unreachable_endpoint_rejected": true,
+      "live_broker_healthy_afterward": true,
+      "scope_note": "Does not stop the shared Kafka broker; actual broker outage/restart is not tested."
+    }
+  ],
+  "not_tested": [
+    {
+      "name": "actual_postgresql_service_outage",
+      "reason": "Stopping the shared database would disrupt existing services; a transient persistence failure was injected instead."
+    },
+    {
+      "name": "actual_kafka_broker_outage_or_restart",
+      "reason": "The shared broker was left running; an unreachable endpoint and subsequent live-broker check were used."
+    }
+  ]
+}
